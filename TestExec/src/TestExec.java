@@ -13,7 +13,8 @@ public class TestExec {
             if(s.toUpperCase().equals("Q")) break;
 
             if(v.start(s))
-                System.out.println("Ответ: " + v.getResult());
+                System.out.println("Answer: " + v.getResult());
+//                System.out.println("Ответ: " + v.getResult());
 
         }
     }

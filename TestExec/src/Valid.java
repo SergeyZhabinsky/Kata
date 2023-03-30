@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Valid {
 
-    private Throwable T;
+    final private Throwable T=null;
 
     // Содержит арифметическую строку разбитую на лексемы
     private String []arr;
@@ -114,6 +114,7 @@ public class Valid {
             put("7", 7);
             put("8", 8);
             put("9", 9);
+            put("10", 10);
             put("I",   1);
             put("II",  2);
             put("III", 3);
@@ -123,15 +124,32 @@ public class Valid {
             put("VII", 7);
             put("VIII",8);
             put("IX",  9);
+
+            put("X",     10);
+            put("XI",    11);
+            put("XII",   12);
+            put("XIII",  13);
+            put("XIV",   14);
+            put("XV",    15);
+            put("XVI",   16);
+            put("XVII",  17);
+            put("XVIII", 18);
         }};
 
         int num1, num2 = -1;
-        final String VALUE = "0-9";
+        final String VALUE = "0-10";
 
 
         try {
             num1 = digit.get(x[0]);
             num2 = digit.get(x[1]);
+
+            // Чтобы латинская цифра была не больше 10
+            if(num1>10){
+                throw new Except("An invalid value was entered. The digit is outside the range '" + VALUE +
+                        "' or is not a Latin numeral in the same range: 1) '" + x[0] + "' 2) '" + x[1] + "'!", T);
+            }
+
 
             // Проверяем одинаковый языковой ввод или нет
             if(isDigit(x[0]) != isDigit(x[1])) {
@@ -178,7 +196,7 @@ public class Valid {
 //            throw new Except("Введено неправильное значение. Цифра находится вне диапазона '" + VALUE +
 //                    "' или не является латинской цифрой в том же диапазоне: 1)' " + x[0] + "' 2)' " + x[1] + "'!", e);
             throw new Except("An invalid value was entered. The digit is outside the range '" + VALUE +
-                    "' or is not a Latin numeral in the same range: 1)' " + x[0] + "' 2)' " + x[1] + "'!", e);
+                    "' or is not a Latin numeral in the same range: 1) '" + x[0] + "' 2) '" + x[1] + "'!", e);
         }
         return true;
     }
