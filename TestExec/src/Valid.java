@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Valid {
 
     final private Throwable T=null;
@@ -17,7 +18,6 @@ public class Valid {
     private String iResult = "";
 
 
-    private boolean isArabicSymbol;
 //=====================================================================
 
 
@@ -37,7 +37,6 @@ public class Valid {
     // Запускаем работу класса
     boolean start(String x){
         boolean bResult = false;
-        isArabicSymbol = true;
 
         x = x.toUpperCase();
 
@@ -85,6 +84,10 @@ public class Valid {
         try {
             if(count == 1 && x.indexOf(sign) > 0 && x.indexOf(sign) < x.length()-1){
                 arr = triming(x, "\\" + sign);
+                for(int i=0; i<arr.length; ++i){
+                    arr[i] = arr[i].trim();
+                }
+
                 return true;
             }else{
 //                throw new Except("Выражение должно содержать один арифметический знак и иметь числовые значения слева и справа от знака.", T);
@@ -100,7 +103,6 @@ public class Valid {
 
 
 
-//    private boolean isDigitValid(String... x) throws Except{
     private boolean isDigitValid(String... x) throws Except{
 
         Map<String, Integer> digit = new HashMap<String, Integer>(){{
@@ -115,25 +117,6 @@ public class Valid {
             put("8", 8);
             put("9", 9);
             put("10", 10);
-            put("I",   1);
-            put("II",  2);
-            put("III", 3);
-            put("IV",  4);
-            put("V",   5);
-            put("VI",  6);
-            put("VII", 7);
-            put("VIII",8);
-            put("IX",  9);
-
-            put("X",     10);
-            put("XI",    11);
-            put("XII",   12);
-            put("XIII",  13);
-            put("XIV",   14);
-            put("XV",    15);
-            put("XVI",   16);
-            put("XVII",  17);
-            put("XVIII", 18);
         }};
 
         int num1, num2 = -1;
@@ -143,20 +126,6 @@ public class Valid {
         try {
             num1 = digit.get(x[0]);
             num2 = digit.get(x[1]);
-
-            // Чтобы латинская цифра была не больше 10
-            if(num1>10){
-                throw new Except("An invalid value was entered. The digit is outside the range '" + VALUE +
-                        "' or is not a Latin numeral in the same range: 1) '" + x[0] + "' 2) '" + x[1] + "'!", T);
-            }
-
-
-            // Проверяем одинаковый языковой ввод или нет
-            if(isDigit(x[0]) != isDigit(x[1])) {
-//                throw new Except("В выражении должны присутствовать, или только арабские цифры, или только латинские цифры.", T);
-                throw new Except("The expression must contain either only Arabic numerals or only Latin numerals.", T);
-            }
-
 
             try {
                 switch (sign){
@@ -169,23 +138,6 @@ public class Valid {
                         else            iResult = String.valueOf(num1 / num2);
                         break;
                 }
-
-                // если латинские цифры, то выполняем условие задания
-                if(!isArabicSymbol){
-                    if(Integer.valueOf(iResult)<1){
-//                        throw new Except("Значение меньше или равно '0'.", T);
-                        throw new Except("Value less than or equal to '0'", T);
-                    }
-                    for(String key : digit.keySet()) {
-                        String value = String.valueOf( digit.get(key) );
-                        if(iResult.equals(value)){
-                            iResult = key;
-                            if(!isDigit(key)) break;
-                        }
-                    }
-                }
-
-
             }catch(ArithmeticException e){
 //                    throw new Except("Ошибка арифметической операции.", e);
                     throw new Except("Arithmetic operation error.", e);
@@ -194,9 +146,9 @@ public class Valid {
 
         }catch (NullPointerException e){
 //            throw new Except("Введено неправильное значение. Цифра находится вне диапазона '" + VALUE +
-//                    "' или не является латинской цифрой в том же диапазоне: 1)' " + x[0] + "' 2)' " + x[1] + "'!", e);
+//                    ": 1)' " + x[0] + "' 2)' " + x[1] + "'!", e);
             throw new Except("An invalid value was entered. The digit is outside the range '" + VALUE +
-                    "' or is not a Latin numeral in the same range: 1) '" + x[0] + "' 2) '" + x[1] + "'!", e);
+                    "': 1) '" + x[0] + "' 2) '" + x[1] + "'!", e);
         }
         return true;
     }
@@ -208,7 +160,6 @@ public class Valid {
         try{
             Integer.valueOf(str);
         }catch (NumberFormatException e){
-            isArabicSymbol=false;
             return false;
         }
 

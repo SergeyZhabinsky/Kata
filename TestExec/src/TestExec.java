@@ -6,8 +6,13 @@ public class TestExec {
         String s;
         Valid v = new Valid();
         while (true){
-//            System.out.println("\n\nВведите символ 'Q' для выхода");
-            System.out.println("\n\nEnter character 'Q' to exit");
+//            Введите два числа с арифметическим знаком между ними.
+//            Или букву "Q" для выхода.
+//            После ввода нажмите кнопку "ENTER".
+            System.out.println("\n\nCalculator.\n" +
+                    "Enter two numbers with an arithmetic sign between them.\n" +
+                    "Or the letter \"Q\" to exit.\n" +
+                    "After entering, press the \"ENTER\" button.");
             s = scan.nextLine();
 
             if(s.toUpperCase().equals("Q")) break;
