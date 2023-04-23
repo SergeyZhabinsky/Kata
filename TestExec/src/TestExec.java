@@ -20,6 +20,7 @@ public class TestExec {
             if(v.start(s))
                 System.out.println("Answer: " + v.getResult());
 //                System.out.println("Ответ: " + v.getResult());
+            else    break;
 
         }
     }
